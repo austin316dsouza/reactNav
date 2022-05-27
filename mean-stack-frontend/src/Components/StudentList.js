@@ -21,52 +21,19 @@ import {
 } from '@mui/material';
 // import { Search as SearchIcon } from '../../icons/search';`
 
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 // import { SeverityPill } from '../severity-pill';
 
 export const StudentList = ({ vans, ...rest }) => {
   const [selectedVansIds, setSelectedVansIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
-//   const [filteredVans, setFilteredVans] = useState(vans)
+  const [filteredVans, setFilteredVans] = useState(vans)
 
-const filteredVans = [{
-    
-}]
+console.log("vans====>>>>>",vans)
 
-  // const router = useRouter();
 
-//   const handleSelectAll = (event) => {
-//     let newSelectedVansIds;
 
-//     if (event.target.checked) {
-//       newSelectedVansIds = vans.map((van) => van.id);
-//     } else {
-//       newSelectedVansIds = [];
-//     }
-
-//     setSelectedVansIds(newSelectedVansIds);
-//   };
-
-//   const handleSelectOne = (event, id) => {
-//     const selectedIndex = selectedVansIds.indexOf(id);
-//     let newSelectedVansIds = [];
-
-//     if (selectedIndex === -1) {
-//       newSelectedVansIds = newSelectedVansIds.concat(selectedVansIds, id);
-//     } else if (selectedIndex === 0) {
-//       newSelectedVansIds = newSelectedVansIds.concat(selectedVansIds.slice(1));
-//     } else if (selectedIndex === selectedVansIds.length - 1) {
-//       newSelectedVansIds = newSelectedVansIds.concat(selectedVansIds.slice(0, -1));
-//     } else if (selectedIndex > 0) {
-//       newSelectedVansIds = newSelectedVansIds.concat(
-//         selectedVansIds.slice(0, selectedIndex),
-//         selectedVansIds.slice(selectedIndex + 1)
-//       );
-//     }
-
-//     setSelectedVansIds(newSelectedVansIds);
-//   };
 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
@@ -79,56 +46,16 @@ const filteredVans = [{
   };
 
   const onEditClick = (user) =>{
-    // console.log("the user is ",user)
-    // sessionStorage.setItem("editvan", JSON.stringify(user));
-    // router.push("/editvans");
-  }
-
-
-  const handleSearch = (input)=>{
-
-    setFilteredVans(vans.filter((van)=>{
-
-
-      if(van.VanNumber.match(input))
-      {
-        return van
-      } 
-    }))
+    console.log("the user is ",user)
 
   }
+
+
+
 
   return (
 
     <>
-
-    <Box sx={{ mt: 3 }}>
-    <Card sx={{marginBottom:"3%"}}>
-      <CardContent>
-        <Box sx={{ maxWidth: 500 }}>
-          <TextField
-            fullWidth
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SvgIcon
-                    color="action"
-                    fontSize="small"
-                  >
-                    {/* <SearchIcon /> */}
-                  </SvgIcon>
-                </InputAdornment>
-              )
-            }}
-            placeholder="Search Vans"
-            variant="outlined"
-            onChange={(e)=> {console.log(e.target.value), handleSearch(e.target.value)}}
-          />
-        </Box>
-      </CardContent>
-    </Card>
-  </Box>
-
 
     <Card {...rest}>
       <PerfectScrollbar>
@@ -160,9 +87,9 @@ const filteredVans = [{
                   Created On
                 </TableCell>
 
-                <TableCell>
+                {/* <TableCell>
                   Status
-                </TableCell>
+                </TableCell> */}
 
                 <TableCell>
                   Action
@@ -218,7 +145,9 @@ const filteredVans = [{
                 </TableCell> */}
 
                   <TableCell>
-                    <Button onClick={()=>{ onEditClick(van), console.log(van)}}>Edit</Button>
+                    <Button onClick={()=>{
+                      //  onEditClick(van),
+                        console.log(van)}}>Edit</Button>
                     </TableCell>
 
                 </TableRow>

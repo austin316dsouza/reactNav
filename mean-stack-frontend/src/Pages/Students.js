@@ -1,21 +1,57 @@
-import Head from "next/head";
 import { Box, Container } from "@mui/material";
-import { VansListResults } from "../components/vans/vans-list-results";
-import { VansListToolbar } from "../components/vans/vans-list-toolbar";
-import { DashboardLayout } from "../components/dashboard-layout";
+import { StudentList } from "../Components/StudentList";
+// import { VansListToolbar } from "../components/vans/vans-list-toolbar";
+// import { DashboardLayout } from "../components/dashboard-layout";
 // import { customers } from '../__mocks__/customers';
 
-import Loader from "../components/Loader";
+// import Loader from "../components/Loader";
 // import { useGetDataListQuery} from "../services/CryptoApi"
 
 const Students = () => {
 //   const { data: vanList, isFetching } = useGetDataListQuery(1);
 
-var vanList = [{
+var vanList = [
+  {
     Id:"1",
     VanNumber:"ewfw",
     CreatedOn:"euyfe"
-}]
+},
+{
+  Id:"1",
+  VanNumber:"ewfw",
+  CreatedOn:"euyfe"
+},
+{
+  Id:"1",
+  VanNumber:"ewfw",
+  CreatedOn:"euyfe"
+},
+{
+  Id:"1",
+  VanNumber:"ewfw",
+  CreatedOn:"euyfe"
+},
+{
+  Id:"1",
+  VanNumber:"ewfw",
+  CreatedOn:"euyfe"
+},
+{
+  Id:"1",
+  VanNumber:"ewfw",
+  CreatedOn:"euyfe"
+},
+{
+  Id:"1",
+  VanNumber:"ewfw",
+  CreatedOn:"euyfe"
+},
+{
+  Id:"1",
+  VanNumber:"ewfw",
+  CreatedOn:"euyfe"
+},
+]
 
 //   if (isFetching) return <Loader />;
 
@@ -31,9 +67,6 @@ var vanList = [{
 
   return(
     <>
-      <Head>
-        <title>Vans | DRIVE4U</title>
-      </Head>
       {vanList.Error == null &&
       <Box
         component="main"
@@ -43,9 +76,9 @@ var vanList = [{
         }}
       >
         <Container maxWidth={false}>
-          <VansListToolbar />
+          {/* <VansListToolbar /> */}
           <Box sx={{ mt: 3 }}>
-            <VansListResults vans={vanList.Details.DataList} />
+            <StudentList vans={vanList} />
           </Box>
         </Container>
       </Box>

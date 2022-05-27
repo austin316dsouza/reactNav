@@ -8,18 +8,27 @@ import {
   Link,
   TextField,
   Typography,
+  RadioGroup,
+  Radio,
+  FormControlLabel
 } from "@mui/material";
 
 import Api from "../Helpers/Api";
+import { useState } from "react";
 
 const Signup = () => {
+
+  const [role, setRole] = useState(1)
+
   const formik = useFormik({
     initialValues: {
+      name:"",
       email: "",
       password: "",
     },
     validationSchema: Yup.object({
-        email: Yup.string().email().max(255).required("User Name is required"),
+      name: Yup.string().max(255).required("Name is required"),
+        email: Yup.string().email().max(255).required("Email is required"),
       password: Yup.string().max(255).required("Password is required"),
     }),
     onSubmit: () => {
@@ -27,14 +36,16 @@ const Signup = () => {
 
       console.log("Add User data");
       let loginDetails = {
+        name:formik.values.name,
         email: formik.values.email,
         password: formik.values.password,
+        role:role
       };
 
       console.log("login details are", loginDetails);
       //   console.log(data);
 
-      Api.post("/signin", loginDetails).then((res, err) => {
+      Api.post("/signup", loginDetails).then((res, err) => {
         console.log(res);
         console.log(err);
       });
@@ -80,6 +91,21 @@ const Signup = () => {
               </Typography>
             </Box>
 
+
+            <TextField
+              error={Boolean(formik.touched.name && formik.errors.name)}
+              fullWidth
+              helperText={formik.touched.name && formik.errors.name}
+              label="Name"
+              margin="normal"
+              name="name"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="text"
+              value={formik.values.name}
+              variant="outlined"
+            />
+
             <TextField
               error={Boolean(formik.touched.email && formik.errors.email)}
               fullWidth
@@ -94,7 +120,7 @@ const Signup = () => {
               variant="outlined"
             />
 
-                
+
                 
             <TextField
               error={Boolean(formik.touched.password && formik.errors.password)}
@@ -109,6 +135,18 @@ const Signup = () => {
               value={formik.values.password}
               variant="outlined"
             />
+
+<RadioGroup
+        row
+        aria-labelledby="demo-row-radio-buttons-group-label"
+        name="row-radio-buttons-group"
+        onChange={(e)=> setRole(e.target.value)}
+        defaultValue={1}
+      >
+        <FormControlLabel value={1} control={<Radio />} label="Teacher" />
+        <FormControlLabel value={2} control={<Radio />} label="Student" />
+      </RadioGroup  >
+
             <Box sx={{ py: 2 }}>
               <Button
                 color="primary"
@@ -118,7 +156,7 @@ const Signup = () => {
                 type="submit"
                 variant="contained"
               >
-                LOGIN
+                SIGN UP
               </Button>
             </Box>
           </form>
