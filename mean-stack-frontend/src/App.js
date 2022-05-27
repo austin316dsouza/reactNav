@@ -7,6 +7,7 @@ import Login from './Pages/Login'
 import Signup from './Pages/Signup'
 import Students from './Pages/Students'
 import AddClassroom from './Pages/AddClassroom'
+import AddTask from './Pages/AddTask'
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route exact path='/students' element={<Students/>} />
         <Route exact path='/dashboard' element={<Dashboard/>} />
         <Route exact path='/addclassroom' element={<AddClassroom/>} />
+        <Route exact path='/addtask' element={<AddTask/>} />
 
       </Routes>
     </Router>
