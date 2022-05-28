@@ -5,7 +5,7 @@ import Api from '../Helpers/Api';
 import { styled } from "@mui/material/styles";
 import Calendar from "../Components/Calendar";
 
-const TeacherDashboard = () => {
+const StudentDashboard = () => {
   const [classroomList, setClassroomList] = useState([]);
 
   //   const Item = styled(Paper)(({ theme }) => ({
@@ -18,7 +18,6 @@ const TeacherDashboard = () => {
 
   const [phoneImage, setPhoneImage] = useState(1);
   const [screenSize, setScreenSize] = useState(window.innerWidth);
-  const [userRole, setUserRole] = useState(0)
 
   // useEffect(() => {
 
@@ -37,24 +36,17 @@ const TeacherDashboard = () => {
   useEffect(() => {
     const handleResize = () => setScreenSize(window.innerWidth);
 
-    
-
     window.addEventListener("resize", handleResize);
 
     var UserRef = typeof window !== 'undefined' ?  localStorage.getItem("UserRef") : null
-
-    var Role = typeof window !== 'undefined' ?  localStorage.getItem("Role") : null
-
-    setUserRole(Role)
 
     if(UserRef===null)
     {
       window.location.href = '/login'
     }
-    if(Role == 1)
-    {
+
     try {
-      Api.get(`/classrooms?userId=${UserRef}`).then(
+      Api.get(`/classrooms?loggedin_user_Ref=${UserRef}`).then(
         (res, err) => {
           console.log(res);
 
@@ -62,22 +54,6 @@ const TeacherDashboard = () => {
         }
       );
     } catch {}
-  }
-  else{
-    try {
-      Api.post(`/classroom/student/displayclasses`,{
-        loggedin_user_Ref: UserRef
-      }).then(
-        (res, err) => {
-          console.log(res);
-          console.log('fjdfu')
-          setClassroomList(res.data.classes);
-        }
-      );
-    } catch {
-      console.log('hejwej')
-    }
-  }
 
 
 
@@ -96,10 +72,10 @@ const TeacherDashboard = () => {
 
   return (
     <>
-    <div style={{marginLeft:"3%"}}>
+    <Container>
     <h1>Classrooms</h1>
-    {userRole ==1 ? <Button variant="contained" style={{marginBottom:"3%"}} onClick={()=> window.location.href = '/addclassroom'} >Add Classroom</Button> : <Button variant="contained" onClick={()=> window.location.href = '/joinclassroom'} style={{marginBottom:"3%"}} >Join Classroom</Button>}
-    </div>
+    <Button variant="contained" onClick={()=> window.location.href = '/addclassroom'} >Add Classroom</Button>
+    </Container>
     <div style={{marginRight:"3%", marginLeft:"3%"}}>
       <Grid container spacing={2}>
         {classroomList.length === 0 && (
@@ -163,4 +139,4 @@ const TeacherDashboard = () => {
   );
 };
 
-export default TeacherDashboard;
+export default StudentDashboard;

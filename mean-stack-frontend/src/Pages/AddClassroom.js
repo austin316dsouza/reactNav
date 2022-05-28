@@ -19,6 +19,8 @@ import { useState } from "react";
 const AddClassroom = () => {
 //   const [role, setRole] = useState(1);
 
+var UserRef = typeof window !== 'undefined' ?  localStorage.getItem("UserRef") : null
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -39,7 +41,7 @@ const AddClassroom = () => {
 
       console.log("Add User data");
       let loginDetails = {
-        userRef:"6290843f476be22bdb9c5155",
+        userRef:UserRef,
         classroomname: formik.values.name,
         branch: formik.values.email,
         description: formik.values.description,
@@ -52,6 +54,8 @@ const AddClassroom = () => {
       Api.post("/createclassroom", loginDetails).then((res, err) => {
         console.log(res);
         console.log(err);
+
+        window.location.href = '/'
       });
 
       console.log("submitted");

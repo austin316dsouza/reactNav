@@ -9,6 +9,8 @@ import Students from './Pages/Students'
 import AddClassroom from './Pages/AddClassroom'
 import AddTask from './Pages/AddTask'
 import Classroom from './Pages/Classroom'
+import Logout from './Pages/Logout'
+import JoinClassroom from './Pages/JoinClassroom'
 
 const App = () => {
 
@@ -34,6 +36,8 @@ const App = () => {
         <Route exact path='/addclassroom' element={<AddClassroom/>} />
         <Route exact path='/addtask' element={<AddTask/>} />
         <Route exact path='/classroom/:id' element={<Classroom/>} />
+        <Route exact path='/logout' element={<Logout/>} />
+        <Route exact path='/joinclassroom' element={<JoinClassroom/>} />
 
       </Routes>
     </Router>

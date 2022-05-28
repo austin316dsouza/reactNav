@@ -63,9 +63,9 @@ const Jobs = () => {
 
   return (
     <>
-    <Container>
-    <h1>Jobs</h1>
-    </Container>
+    {/* <Container> */}
+    <h1 style={{marginLeft:"3%"}}>Jobs</h1>
+    {/* </Container> */}
     <div style={{marginRight:"3%", marginLeft:"3%"}}>
       <Grid container spacing={2}>
         {jobList.length === 0 && (

@@ -92,7 +92,7 @@ const Header = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.id} onClick={handleCloseNavMenu}>
+                <MenuItem key={page.id} onClick={()=> {window.location.href = page.route}} >
                   <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
@@ -115,7 +115,7 @@ const Header = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            CB
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (

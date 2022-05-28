@@ -23,6 +23,7 @@ import Dropzone from "react-dropzone";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
+import Classroom from "./Classroom";
 
 const AddTask = () => {
   //   const [role, setRole] = useState(1);
@@ -31,6 +32,8 @@ const AddTask = () => {
 
   // const [value, onChange] = useState(new Date());
   const [startDate, setStartDate] = useState(new Date());
+
+  var classroomRef = typeof window !== 'undefined' ?  localStorage.getItem("ClassroomRef") : null
 
   const formik = useFormik({
     initialValues: {
@@ -56,7 +59,7 @@ const AddTask = () => {
 
       formdata.append("taskTitle", formik.values.title);
       formdata.append("taskDescription", formik.values.description);
-      formdata.append("classroomRef", "6290e4d82daa42bfb4643e65");
+      formdata.append("classroomRef", classroomRef);
 
       file.forEach((item, i) => {
         formdata.append("image", item);
@@ -67,7 +70,10 @@ const AddTask = () => {
 
       Api.post("/classroom/create/task", formdata).then((res, err) => {
         console.log(res);
-        console.log(err);
+        // console.log(err);
+
+        window.location.href = `/classroom/${classroomRef}`
+        console.log(res)
       });
 
       console.log("submitted");
@@ -155,10 +161,10 @@ const AddTask = () => {
               )}
             </Dropzone>
 
-            <Box sx={{ py: 2 }}>
-              {/* <DateTimePicker onChange={onChange} value={value} format="YYYY-MM-DD" dateFormat={false} /> */}
+            {/* <Box sx={{ py: 2 }}>
+              <DateTimePicker onChange={onChange} value={value} format="YYYY-MM-DD" dateFormat={false} />
               <DatePicker selected={startDate} dateFormat="yyyy-mm-dd" onChange={(date) => setStartDate(date)} />
-            </Box>
+            </Box> */}
 
             <Box sx={{ py: 2 }}>
               <Button
@@ -171,7 +177,6 @@ const AddTask = () => {
               >
                 ADD TASK
               </Button>
-              <Button onClick={()=> console.log("value===>>>>", startDate)}>lol</Button>
             </Box>
           </form>
         </Container>

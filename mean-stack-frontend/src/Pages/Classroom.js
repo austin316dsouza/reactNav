@@ -12,15 +12,25 @@ const Classroom = () => {
 
   const { id } = useParams();
 
+  
+
   const [phoneImage, setPhoneImage] = useState(1);
   const [screenSize, setScreenSize] = useState(window.innerWidth);
+  const [userRole, setUserRole] = useState(0)
 
   useEffect(()=>{
 
     const handleResize = () => setScreenSize(window.innerWidth);
 
-    window.addEventListener("resize", handleResize);
+    localStorage.setItem("ClassroomRef",id)
 
+    var Role = typeof window !== 'undefined' ?  localStorage.getItem("Role") : null
+    setUserRole(Role)
+
+    window.addEventListener("resize", handleResize);
+    if(Role == 1){
+
+    
       try {
         Api.get(`/classroom/alltask?class_ref=${id}`).then(
           (res, err) => {
@@ -30,6 +40,20 @@ const Classroom = () => {
           }
         );
       } catch {}
+    }
+    else{
+
+      try {
+        Api.get(`/classroom/student/displaytask?class_ref=${id}`).then(
+          (res, err) => {
+            console.log(res);
+  
+            setTaskList(res.data.task_of_student);
+          }
+        );
+      } catch {}
+
+    }
 
       return () => window.removeEventListener("resize", handleResize);
 
@@ -68,7 +92,7 @@ const Classroom = () => {
 <Container>
 <h1>Tasks</h1>
 
-<Button variant="contained" onClick={()=> window.location.href = '/addtask'} >Add Task</Button>
+{userRole==1 && (<Button variant="contained" onClick={()=> window.location.href = '/addtask'} >Add Task</Button>)}
 
 <Grid container spacing={2}>
   {taskList.length === 0 && (
