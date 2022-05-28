@@ -2,7 +2,12 @@ import { Button } from "@mui/material";
 import React from "react";
 
 
-function Calendar() {
+function Calendar({title,date,description}) {
+
+  var newDate = date.slice(0,10) + "T09:00:00-07:00";
+
+  console.log("the date is ===>>>>>>", newDate)
+
   var gapi = window.gapi;
   /* 
     Update with your own Client Id and Api key 
@@ -36,22 +41,23 @@ function Calendar() {
 
             console.log("inside then")
           var event = {
-            summary: "Awesome Event!",
-            location: "800 Howard St., San Francisco, CA 94103",
-            description: "Really great refreshments",
+            summary: title,
+            // location: "800 Howard St., San Francisco, CA 94103",
+            description: description,
             start: {
-              dateTime: "2022-06-28T09:00:00-07:00",
-              timeZone: "America/Los_Angeles",
+              // "2022-05-28T09:00:00-07:00"
+              dateTime: newDate,
+              timeZone: "Asia/Kolkata",
             },
             end: {
-              dateTime: "2022-06-28T17:00:00-07:00",
-              timeZone: "America/Los_Angeles",
+              dateTime: newDate,
+              timeZone: "Asia/Kolkata",
             },
             recurrence: ["RRULE:FREQ=DAILY;COUNT=2"],
-            attendees: [
-              { email: "lpage@example.com" },
-              { email: "sbrin@example.com" },
-            ],
+            // attendees: [
+            //   { email: "lpage@example.com" },
+            //   { email: "sbrin@example.com" },
+            // ],
             reminders: {
               useDefault: false,
               overrides: [
@@ -97,7 +103,7 @@ function Calendar() {
   return (
 
  <Button style={{fontWeight:"bold" }} onClick={handleClick} variant="contained" >
-          Add Event
+          Add To Calendar
 </Button>
   );
 }

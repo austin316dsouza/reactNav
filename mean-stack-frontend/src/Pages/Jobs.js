@@ -1,4 +1,4 @@
-import { Grid, Paper, Skeleton } from "@mui/material";
+import { Container, Grid, Paper, Skeleton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import BasicCard from "../Components/Card";
 import Api from "axios";
@@ -39,7 +39,7 @@ const Jobs = () => {
     window.addEventListener("resize", handleResize);
 
     try {
-      Api.get("https://remotive.com/api/remote-jobs?limit=0").then(
+      Api.get("https://remotive.com/api/remote-jobs?limit=51").then(
         (res, err) => {
           console.log(res.data.jobs);
 
@@ -63,6 +63,10 @@ const Jobs = () => {
 
   return (
     <>
+    <Container>
+    <h1>Jobs</h1>
+    </Container>
+    <div style={{marginRight:"3%", marginLeft:"3%"}}>
       <Grid container spacing={2}>
         {jobList.length === 0 && (
           <>
@@ -119,7 +123,8 @@ const Jobs = () => {
           </Grid>
         ))}
       </Grid>
-      <Calendar />
+      </div>
+      {/* <Calendar /> */}
     </>
   );
 };

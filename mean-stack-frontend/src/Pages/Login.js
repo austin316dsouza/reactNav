@@ -11,8 +11,21 @@ import {
 } from "@mui/material";
 
 import Api from "../Helpers/Api";
+import { useEffect } from "react";
 
 const Login = () => {
+
+
+  useEffect(()=>{
+    var UserRef = typeof window !== 'undefined' ?  localStorage.getItem("UserRef") : null
+
+    if(UserRef!==null)
+    {
+      window.location.href = '/dash'
+    }
+
+  },[])
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -37,6 +50,10 @@ const Login = () => {
       Api.post("/signin", loginDetails).then((res, err) => {
         console.log(res);
         console.log(err);
+
+        window.localStorage.setItem('UserRef',res.data.user._id)
+        window.localStorage.setItem('Role',res.data.user.role)
+        window.location.href = '/dash'
       });
 
       console.log("submitted");
@@ -63,7 +80,7 @@ const Login = () => {
                 textAlign: "center",
               }}
             >
-              DRIVE4U
+              COLLEGE BUDDY
             </Typography>
           </Box>
 
@@ -76,7 +93,7 @@ const Login = () => {
                   textAlign: "center",
                 }}
               >
-                Sign in
+                Login
               </Typography>
             </Box>
 
@@ -118,6 +135,9 @@ const Login = () => {
                 LOGIN
               </Button>
             </Box>
+
+                <Typography onClick={()=> window.location.href = '/signup'}>Dont have an account? Sign Up</Typography>
+
           </form>
         </Container>
       </Box>

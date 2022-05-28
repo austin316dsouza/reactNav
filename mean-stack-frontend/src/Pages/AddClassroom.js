@@ -78,7 +78,7 @@ const AddClassroom = () => {
                 textAlign: "center",
               }}
             >
-              COLLEGE BUDDIES
+              COLLEGE BUDDY
             </Typography>
           </Box>
 
@@ -91,7 +91,7 @@ const AddClassroom = () => {
                   textAlign: "center",
                 }}
               >
-                Sign in
+                Classroom
               </Typography>
             </Box>
 
@@ -171,7 +171,7 @@ const AddClassroom = () => {
                 type="submit"
                 variant="contained"
               >
-                SIGN UP
+                ADD CLASSROOM
               </Button>
             </Box>
           </form>

@@ -17,11 +17,20 @@ import Api from "../Helpers/Api";
 import { useState } from "react";
 
 import Dropzone from "react-dropzone";
+// import DateTimePicker from 'react-datetime-picker';
+// import Datetime from 'react-datetime';
+
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 const AddTask = () => {
-//   const [role, setRole] = useState(1);
+  //   const [role, setRole] = useState(1);
 
-const [file, setFile] = useState([]);
+  const [file, setFile] = useState([]);
+
+  // const [value, onChange] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
 
   const formik = useFormik({
     initialValues: {
@@ -30,14 +39,16 @@ const [file, setFile] = useState([]);
     },
     validationSchema: Yup.object({
       title: Yup.string().max(255).required("Title is required"),
-    //   email: Yup.string().max(255).required("Branch is required"),
-    //   branch: Yup.string().max(255).required("Email is required"),
+      //   email: Yup.string().max(255).required("Branch is required"),
+      //   branch: Yup.string().max(255).required("Email is required"),
       description: Yup.string().max(255).required("Description is required"),
-    //   sem: Yup.string().max(10).required("Semester is required"),
+      //   sem: Yup.string().max(10).required("Semester is required"),
       //   password: Yup.string().max(255).required("Password is required"),
     }),
     onSubmit: () => {
       console.log("submitted", formik.values);
+
+      const date = new Date()
 
       console.log("Add User data");
 
@@ -60,6 +71,7 @@ const [file, setFile] = useState([]);
       });
 
       console.log("submitted");
+      // console.log("value ==>>>>", value.parse())
     },
   });
 
@@ -83,7 +95,7 @@ const [file, setFile] = useState([]);
                 textAlign: "center",
               }}
             >
-              COLLEGE BUDDIES
+              COLLEGE BUDDY
             </Typography>
           </Box>
 
@@ -96,7 +108,7 @@ const [file, setFile] = useState([]);
                   textAlign: "center",
                 }}
               >
-                Sign in
+                TASKS
               </Typography>
             </Box>
 
@@ -114,11 +126,14 @@ const [file, setFile] = useState([]);
               variant="outlined"
             />
 
-
             <TextField
-              error={Boolean(formik.touched.description && formik.errors.description)}
+              error={Boolean(
+                formik.touched.description && formik.errors.description
+              )}
               fullWidth
-              helperText={formik.touched.description && formik.errors.description}
+              helperText={
+                formik.touched.description && formik.errors.description
+              }
               label="Description"
               margin="normal"
               name="description"
@@ -129,7 +144,7 @@ const [file, setFile] = useState([]);
               variant="outlined"
             />
 
-<Dropzone onDrop={(acceptedFiles) => setFile(acceptedFiles)}>
+            <Dropzone onDrop={(acceptedFiles) => setFile(acceptedFiles)}>
               {({ getRootProps, getInputProps }) => (
                 <section>
                   <div {...getRootProps()}>
@@ -141,6 +156,11 @@ const [file, setFile] = useState([]);
             </Dropzone>
 
             <Box sx={{ py: 2 }}>
+              {/* <DateTimePicker onChange={onChange} value={value} format="YYYY-MM-DD" dateFormat={false} /> */}
+              <DatePicker selected={startDate} dateFormat="yyyy-mm-dd" onChange={(date) => setStartDate(date)} />
+            </Box>
+
+            <Box sx={{ py: 2 }}>
               <Button
                 color="primary"
                 disabled={formik.isSubmitting}
@@ -149,8 +169,9 @@ const [file, setFile] = useState([]);
                 type="submit"
                 variant="contained"
               >
-                SIGN UP
+                ADD TASK
               </Button>
+              <Button onClick={()=> console.log("value===>>>>", startDate)}>lol</Button>
             </Box>
           </form>
         </Container>

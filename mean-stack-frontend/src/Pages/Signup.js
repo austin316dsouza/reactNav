@@ -48,6 +48,10 @@ const Signup = () => {
       Api.post("/signup", loginDetails).then((res, err) => {
         console.log(res);
         console.log(err);
+
+        window.localStorage.setItem('UserRef',res.id)
+        window.localStorage.setItem('Role',res.role)
+        window.location.href = '/dash'
       });
 
       console.log("submitted");
@@ -74,7 +78,7 @@ const Signup = () => {
                 textAlign: "center",
               }}
             >
-              COLLEGE BUDDIES
+              COLLEGE BUDDY
             </Typography>
           </Box>
 
@@ -87,7 +91,7 @@ const Signup = () => {
                   textAlign: "center",
                 }}
               >
-                Sign in
+                Sign Up
               </Typography>
             </Box>
 
@@ -159,6 +163,8 @@ const Signup = () => {
                 SIGN UP
               </Button>
             </Box>
+
+            <Typography onClick={()=> window.location.href = '/login'}>Already have an account? Login</Typography>
           </form>
         </Container>
       </Box>

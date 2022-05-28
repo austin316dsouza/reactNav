@@ -1,4 +1,4 @@
-import { Grid, Paper, Skeleton } from "@mui/material";
+import { Button, Container, Grid, Paper, Skeleton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import BasicCard from "../Components/ClassCard";
 import Api from '../Helpers/Api';
@@ -38,8 +38,15 @@ const TeacherDashboard = () => {
 
     window.addEventListener("resize", handleResize);
 
+    var UserRef = typeof window !== 'undefined' ?  localStorage.getItem("UserRef") : null
+
+    if(UserRef===null)
+    {
+      window.location.href = '/login'
+    }
+
     try {
-      Api.get("/classrooms?userId=6290843f476be22bdb9c5155").then(
+      Api.get(`/classrooms?userId=${UserRef}`).then(
         (res, err) => {
           console.log(res);
 
@@ -47,6 +54,8 @@ const TeacherDashboard = () => {
         }
       );
     } catch {}
+
+
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -63,6 +72,11 @@ const TeacherDashboard = () => {
 
   return (
     <>
+    <Container>
+    <h1>Classrooms</h1>
+    <Button variant="contained" onClick={()=> window.location.href = '/addclassroom'} >Add Classroom</Button>
+    </Container>
+    <div style={{marginRight:"3%", marginLeft:"3%"}}>
       <Grid container spacing={2}>
         {classroomList.length === 0 && (
           <>
@@ -119,7 +133,8 @@ const TeacherDashboard = () => {
           </Grid>
         ))}
       </Grid>
-      <Calendar />
+      </div>
+      {/* <Calendar /> */}
     </>
   );
 };
