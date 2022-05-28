@@ -18,7 +18,7 @@ import { useState } from "react";
 
 const Signup = () => {
 
-  const [role, setRole] = useState(1)
+  const [role, setRole] = useState(0)
 
   const formik = useFormik({
     initialValues: {
@@ -50,7 +50,7 @@ const Signup = () => {
         console.log(err);
 
         window.localStorage.setItem('UserRef',res.id)
-        window.localStorage.setItem('Role',res.role)
+        window.localStorage.setItem('Role',role)
         window.location.href = '/dash'
       });
 

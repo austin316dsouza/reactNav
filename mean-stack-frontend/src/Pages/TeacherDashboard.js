@@ -20,6 +20,8 @@ const TeacherDashboard = () => {
   const [screenSize, setScreenSize] = useState(window.innerWidth);
   const [userRole, setUserRole] = useState(0)
 
+  const [isEmpty, setIsEmpty] = useState(false)
+
   // useEffect(() => {
 
   //   if (screenSize >= 800) {
@@ -59,6 +61,9 @@ const TeacherDashboard = () => {
           console.log(res);
 
           setClassroomList(res.data.classrooms);
+          if(res.data.classrooms.length == 0){
+            setIsEmpty(true)
+          }
         }
       );
     } catch {}
@@ -102,7 +107,10 @@ const TeacherDashboard = () => {
     </div>
     <div style={{marginRight:"3%", marginLeft:"3%"}}>
       <Grid container spacing={2}>
-        {classroomList.length === 0 && (
+        {isEmpty && (
+          <h1>No Classrooms Added yet</h1>
+        )}
+        {(classroomList.length === 0 && !isEmpty) && (
           <>
             <Grid item xs={phoneImage}>
               <Paper>
